@@ -23,7 +23,7 @@
  * We set x[0] = x and x[1] = dx/dt such that we obtain the system            *
  *                                                                            *
  *     dx[0]/dt = x[1]                                                        *
- *     dx[1]/dt = -alpha n * x[0] ,                                           *
+ *     dx[1]/dt = -alpha * n * x[0] ,                                         *
  *                                                                            *
  * where alpha is a positive number and n a positive integer.                 *
  *                                                                            *
@@ -90,7 +90,7 @@ static void F(int *neq,
               int *ipar) {
     (void)neq; (void)t; (void)rpar; (void)ipar;
     xdot[0] = (+1.+I*0.)*x[1];
-    xdot[1] = (-1.+I*0.)*x[0];
+    xdot[1] = rpar[0] * (double complex)ipar[0] * (-1.+I*0.)*x[0];
 }
 
 // Print time step result
