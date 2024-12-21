@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------------- *
  *                                                                            *
- * This file is part of the application *calendar* by Simon Euchner.          *
+ * This file is part of the C language interface to ZVODE by Simon Euchner.   *
  *                                                                            *
  * -------------------------------------------------------------------------- *
  *                                                                            *
