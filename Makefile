@@ -1,5 +1,19 @@
 # ---------------------------------------------------------------------------- #
-# Makefile for the ZVODE integrator code from netlib and the C interface       #
+#                                                                              #
+# LICENSE NOTICE.                                                              #
+#                                                                              #
+#     LICENSES: GPL-3.0                                                        #
+#                                                                              #
+#     IMPORTANT: THIS IS FREE SOFTWARE WITHOUT ANY WARRANTY. THE USER IS IF    #
+#                FREE TO MODIFY AND REDISTRIBUTE THIS SOFTWARE UNDER THE TERMS #
+#                OF THE LICENSE LISTED ABOVE PUBLISHED BY THE FREE SOFTWARE    #
+#                FOUNDATION. THE PUBLISHER, SIMON EUCHNER, IS NOT RESPONSIBLE  #
+#                FOR ANY NEGATIVE EFFECTS THIS SOFTWARE MAY CAUSE.             #
+#                                                                              #
+# ---------------------------------------------------------------------------- #
+#                                                                              #
+# Makefile for C language interface to netlib's ZVODE ODE integrator           #
+#                                                                              #
 # ---------------------------------------------------------------------------- #
 
 

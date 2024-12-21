@@ -1,1 +1,1 @@
-General space to store object code.
+Place to store object code.

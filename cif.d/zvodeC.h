@@ -1,8 +1,26 @@
 /* -------------------------------------------------------------------------- *
- * C interface to the ZVODE ODE integrator code                               *
- * I have decided not to allow the Jacobian as an argument as it is only      *
- * needed in the stiff case, which I usually do not need.                     *
+ *                                                                            *
+ * This file is part of the application *calendar* by Simon Euchner.          *
+ *                                                                            *
+ * -------------------------------------------------------------------------- *
+ *                                                                            *
+ * LICENSES: GPL-3.0                                                          *
+ *                                                                            *
+ * IMPORTANT: THIS IS FREE SOFTWARE WITHOUT ANY WARRANTY. THE USER IS IF FREE *
+ *            TO MODIFY AND REDISTRIBUTE THIS SOFTWARE UNDER THE TERMS OF THE *
+ *            LICENSE LISTED ABOVE PUBLISHED BY THE FREE SOFTWARE FOUNDATION. *
+ *            THE PUBLISHER, SIMON EUCHNER, IS NOT RESPONSIBLE FOR ANY        *
+ *            NEGATIVE EFFECTS THIS SOFTWARE MAY CAUSE.                       *
+ *                                                                            *
+ * -------------------------------------------------------------------------- *
+ *                                                                            *
+ *  C language interface to the ZVODE ODE integrtor from                      *
+ *  --- https://netlib.org/ode ---. This is the main source file to generate  *
+ * the shared library *../bin.d/libzvode.so* allowing calls to the FORTRAN    *
+ * routines in *zvode.f* from within C.                                       *
+ *                                                                            *
  * -------------------------------------------------------------------------- */
+
 
 #ifndef ZVODE_H
 #define ZVODE_H
@@ -11,13 +29,16 @@
 #include <stdio.h>
 #include <complex.h>
 
+// Type for vector field
+typedef void (field)(int *,
+                   double *,
+                   double complex *,
+                   double complex *,
+                   double *,
+                   int *);
+
 // ZVODE subroutine from *../lib.d/zvode.so*
-extern void zvode_(void (*)(int *,
-                            double *,
-                            double complex *,
-                            double complex *,
-                            double *,
-                            int *),
+extern void zvode_(field *,
                    int *,
                    double complex *,
                    double *,
@@ -39,14 +60,12 @@ extern void zvode_(void (*)(int *,
                    double *,
                    int *);
 
-// Data for the integrator
+// Data for integration process
 typedef struct _ZVODE_data {
-    void (*F)(int *,
-              double *,
-              double complex *,
-              double complex *,
-              double *,
-              int *);
+    field *F;
+    double *t;
+    double complex *x;
+    int mf;
     int neq;
     int itask;
     int itol;
@@ -60,22 +79,20 @@ typedef struct _ZVODE_data {
     int lrw;
     int *iwork;
     int liw;
-    int mf;
-    int *IPAR;
-    double *RPAR;
+    double *rpar;
+    int *ipar;
 } ZVODE_data;
 
 ZVODE_data *ZVODE_init(int,
                        int,
-                       void (*)(int *,
-                                double *,
-                                double complex *,
-                                double complex *,
-                                double *,
-                                int *),
+                       field *,
                        double,
-                       double);
-void ZVODE_step(ZVODE_data *, double *, double, double complex *);
+                       double,
+                       double *,
+                       double complex *,
+                       double *,
+                       int *);
+void ZVODE_step(ZVODE_data *, double);
 void ZVODE_clean(ZVODE_data *);
 
 #endif
