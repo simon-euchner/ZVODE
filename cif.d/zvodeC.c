@@ -133,6 +133,7 @@ void ZVODE_clean(ZVODE_data *data) {
     free(data->zwork);
     free(data->rwork);
     free(data->iwork);
+    free(data);
 }
 
 // Function printing error messages of zvode
